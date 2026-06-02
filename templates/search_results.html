@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Results for "{{ keyword }}"</h2>
+    <!-- Page content-->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Post content-->
+            {% for post in post %}
+            <article>
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <h1 class="fw-bolder mb-1">
+                        <a href="{% url 'blog_detail' post.slug %}" class="text-decoration-none text-dark">{{ post.title }}</a>
+                    </h1>
+                    <!-- Post meta content-->
+                    <div class="text-muted fst-italic mb-2">Posted on {{ post.created_at }} by {{ post.author }}</div>
+                    <!-- Post category-->
+                    <a class="badge bg-warning text-decoration-none text-light" href="#!">{{ post.category }}</a>
+                </header>
+  
+
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+    
+
+{% endblock %}

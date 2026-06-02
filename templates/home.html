@@ -16,7 +16,9 @@
     <p class="lead my-3">{{ post.short_description }}</p>
 
     <p class="lead mb-0">
-      <a href="#" class="text-white fw-bold"> Continue reading... </a>
+      <a href="{% url 'blog_detail' post.slug %}" class="text-white fw-bold">
+        Continue reading...
+      </a>
     </p>
   </div>
 </div>
@@ -43,7 +45,9 @@
 
         <p class="card-text mb-auto">{{ post.short_description }}</p>
 
-        <a href="#" class="stretched-link"> Continue reading </a>
+        <a href="{% url 'blog_detail' post.slug %}" class="stretched-link">
+          Continue reading
+        </a>
       </div>
     </div>
   </div>
@@ -57,9 +61,25 @@
     <!-- Recent Artice Here  -->
     {% for post in not_featured %}
     <article class="blog-post">
-      <h2 class="blog-post-title">Sample Blog Post</h2>
+      <h2 class="mb-3">
+        <a
+          href="{% url 'blog_detail' post.slug %}"
+          class="text-dark text-decoration-none fw-bold"
+          style="transition: all 0.1s ease; letter-spacing: 0.5px"
+          onmouseover="
+            this.style.color = '#0d6efd';
+            this.style.paddingLeft = '10px';
+          "
+          onmouseout="
+            this.style.color = '';
+            this.style.paddingLeft = '0px';
+          "
+        >
+          {{ post.title }}
+        </a>
+      </h2>
 
-      <p class="blog-post-meta">{{post.crated_at}} by {{post.author}}</p>
+      <p class="blog-post-meta">{{post.created_at}} by {{post.author}}</p>
 
       <p>{{post.short_description}}</p>
     </article>
@@ -73,8 +93,17 @@
         <h4 class="fst-italic">About</h4>
 
         <p class="mb-0">
-          This is a simple Django blog project. You can place your about section
-          here.
+          Welcome to Django Blog, a platform dedicated to sharing knowledge,
+          ideas, and insights on technology, programming, and innovation. Our
+          mission is to provide readers with informative, engaging, and
+          easy-to-understand content that helps them learn and grow in the
+          digital world. Whether you are a student, developer, or technology
+          enthusiast, our blog offers articles covering a wide range of topics,
+          from web development and software engineering to industry trends and
+          practical tutorials. We believe that knowledge becomes more valuable
+          when it is shared, and we strive to create content that inspires
+          curiosity and continuous learning. Thank you for being part of our
+          community and joining us on this learning journey.
         </p>
       </div>
 
@@ -82,10 +111,10 @@
         <h4 class="fst-italic">Follow Us</h4>
 
         <ol class="list-unstyled mb-0">
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">LinkedIn</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+          <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+          <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+          <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
         </ol>
       </div>
     </div>

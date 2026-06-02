@@ -27,12 +27,12 @@
         style="background-image: url({{post.featured_image.url}}) ;background-size: cover;"
       >
         <div class="col-md-6 px-0">
-          <h1 class="display-4 fst-italic">{{ post.title }}</h1>
+          <h1 class="display-4 fst-italic"><a href="{% url 'blog_detail' post.slug %}" class="text-dark text-decoration-none">{{ post.title }}</a></h1>
 
           <p class="lead my-3">{{ post.short_description }}</p>
 
           <p class="lead mb-0">
-            <a href="#" class="text-white fw-bold"> Continue reading... </a>
+            <a href="{% url 'blog_detail' post.slug %}" class="text-white fw-bold"> Continue reading... </a>
           </p>
         </div>
       </div>
