@@ -1,0 +1,62 @@
+{% extends 'base.html'%}
+
+{% block content%}
+
+      <!-- Featured Hero -->
+{% for post in categories %}
+    {% if post.id == category_id %}
+        <div class="mb-4">
+            <span class="badge rounded-pill fs-5 px-4 py-3"
+                  style="
+                  background: linear-gradient(135deg, #d1e3fd, #917d3b);
+                  box-shadow:  5px 5px rgba(174, 190, 194, 0.491);
+                  text-shadow: 0px 3px 0px rgba(255,255,255,0.3);
+                  cursor: pointer;
+                  ">
+                ✨ {{ post }}
+            </span>
+        </div>
+    {% endif %}
+{% endfor %}
+
+       {% if posts %}
+      {% for post in posts %} 
+    
+      <div
+        class="p-4 p-md-5 mb-4 rounded text-white bg-dark"
+        style="background-image: url({{post.featured_image.url}}) ;background-size: cover;"
+      >
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 fst-italic">{{ post.title }}</h1>
+
+          <p class="lead my-3">{{ post.short_description }}</p>
+
+          <p class="lead mb-0">
+            <a href="#" class="text-white fw-bold"> Continue reading... </a>
+          </p>
+        </div>
+      </div>
+      
+       {% endfor %}
+
+       {% else  %}
+        <p>No Post in this category</p>
+
+        {% endif %}
+     
+
+            <div class="p-4">
+              <h4 class="fst-italic">Follow Us</h4>
+
+              <ol class="list-unstyled mb-0">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">LinkedIn</a></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
