@@ -41,6 +41,7 @@ body {
         <!-- Search -->
 <div class="col-md-4 mx-auto">
     <form action = "{% url 'search_blog' %}" method="GET">
+        {% csrf_token %}
 
         <div
             class="input-group p-2"
@@ -76,16 +77,27 @@ body {
     </form>
 </div>
         <!-- Login/Register -->
+         {% if  not user.is_authenticated %}
+
         <div class="col-md-4 d-flex justify-content-center justify-content-md-end mt-3 mt-md-0">
-            <a class="btn btn-warning me-2" href="#">
+            <a class="btn btn-warning me-2" href="{% url 'login' %}">
                 Login
             </a>
 
-            <a class="btn btn-outline-secondary" href="#">
+            <a class="btn btn-outline-secondary" href="{% url 'register' %}">
                 Register
             </a>
         </div>
 
+        {% else %}
+        <div class="col-md-4 d-flex justify-content-center justify-content-md-end mt-3 mt-md-0">
+            <span class="me-3 text-secondary">
+                Hello, {{ user.username }}!
+            </span>
+            <a class="btn btn-outline-secondary" href="{% url 'logout' %}">
+                Logout
+            </a>
+        {% endif %}
     </div>
 </header>
 

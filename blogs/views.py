@@ -1,3 +1,5 @@
+from asyncio import sleep
+
 from django.shortcuts import render , redirect , get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Q
@@ -43,7 +45,8 @@ def search_blog(request):
     if keyword:
         post = Blog.objects.filter(status= "Publish").filter(Q(title__icontains= keyword) | Q(author__username__icontains= keyword)| Q(short_description__icontains= keyword)| Q(category__category_name__icontains= keyword))
     else:
-        return redirect('home')
+
+         return redirect('home')
 
     context = {
         'post': post,

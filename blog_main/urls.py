@@ -10,6 +10,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('category/', include('blogs.urls')),
-    path('<slug:slug>/', blog_views.blog_detail, name='blog_detail'),
+    path('blog/<slug:slug>/', blog_views.blog_detail, name='blog_detail'),
     path('search/blog/', blog_views.search_blog, name='search_blog'),
+    path('register/', views.register, name='register'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout, name='logout'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
