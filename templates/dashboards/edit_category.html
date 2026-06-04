@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+
+<form action="{% url 'edit_category' category.id %}" method="POST">
+  {% csrf_token %}
+
+  <input
+    type="text"
+    value="{{ category.category_name }}"
+    name="category_name"
+    class="form-control mb-3"
+  />
+
+  <button type="submit" class="btn btn-warning text-darker">
+    Update Category
+  </button>
+</form>
+
+{% endblock %}

@@ -20,11 +20,14 @@
     />
 
     <link rel="stylesheet" href="{% static 'css/blog.css' %}" />
+    
  <style>
 body {
     background-color: rgba(174, 190, 194, 0.491);
 }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   </head>
   <body>
     <div class="container">
@@ -92,7 +95,9 @@ body {
         {% else %}
         <div class="col-md-4 d-flex justify-content-center justify-content-md-end mt-3 mt-md-0">
             <span class="me-3 text-secondary">
-                Hello, {{ user.username }}!
+               <a href="{% url 'dashboard' %}" class="text-decoration-none text-secondary">
+                Dashboard
+            </a>
             </span>
             <a class="btn btn-outline-secondary" href="{% url 'logout' %}">
                 Logout

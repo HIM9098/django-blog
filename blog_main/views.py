@@ -39,7 +39,7 @@ def login_view(request):
             user = auth.authenticate(username = username , password = password )
             if user is not None : 
                 auth.login(request, user)
-                return redirect('home')
+                return redirect('dashboard')
     else :
 
         form = AuthenticationForm()
@@ -47,8 +47,8 @@ def login_view(request):
         'form': form
     }
 
-    return render(request, 'login.html', context)
+    return render(request, 'login.html', context) 
 
 def logout(request):
     auth.logout(request)    # how this is working without request argument in logout functinon 
-    return redirect('home')
+    return redirect('login')
