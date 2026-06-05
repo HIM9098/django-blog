@@ -33,7 +33,7 @@ def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
         if form.is_valid(): 
-            username = form.cleaned_data.get('username')
+            username = form.cleaned_data.get('username') # this takes the data like request.POST('NAME OF THE INPUT FIELD ')
             password = form.cleaned_data.get('password')
 
             user = auth.authenticate(username = username , password = password )
@@ -52,3 +52,5 @@ def login_view(request):
 def logout(request):
     auth.logout(request)    # how this is working without request argument in logout functinon 
     return redirect('login')
+
+

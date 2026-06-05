@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from blogs.models import Category, Blog
 from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify
 
 # Create your views here.
 
@@ -91,7 +92,10 @@ def add_blog(request):
             featured_image=featured_image,
             category=category,
             author=request.user,
-            slug=title.replace(" ", "-").lower(),
+            slug = title.replace(" ","-").lower(),
+            is_featured = True,
+            status = "Publish"
+
         )
         blog.save()
         return redirect("blog_posts")
@@ -113,6 +117,9 @@ def edit_blog(request, id):
         blog.title = title
         blog.short_description = short_description
         blog.blog_body = blog_body
+        # blog.slug = title.replace(" ","-").lower()  or -- 
+        blog.slug = slugify(title) + "-" + str(blog.id)  # it is working fine 
+
         blog.category = category
         if "featured_image" in request.FILES: # checking if user has uploaded files or not 
             featured_image = request.FILES["featured_image"]
@@ -125,3 +132,6 @@ def edit_blog(request, id):
                ,"blog": blog_post
                }
     return render(request, "dashboards/edit.html",context)
+
+
+# now making the tile clickable and on clicking the it opens the psots 

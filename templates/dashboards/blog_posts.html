@@ -35,7 +35,7 @@
         {% for blog in blogs %}
         <tr>
             <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ blog.title }}</td>
+            <td><a href="{%  url 'blog_detail' blog.slug %}" class = "text-success text-decoration-none "><b>{{ blog.title }}</b></a></td>
             <td>{{ blog.author }}</td>
             <td>{{ blog.category }}</td>
             <td>{{ blog.crated_at }}</td>
