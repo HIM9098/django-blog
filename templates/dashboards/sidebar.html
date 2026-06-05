@@ -9,7 +9,7 @@
                 Categories
             </a>
                        
-            <a href="#" class=" nav-link text-dark {% if request.path == '/posts/' %}bg-warning {% endif %} ">
+            <a href="{% url 'blog_posts' %}" class=" nav-link text-dark {% if '/blog/' in request.path %}bg-warning {% endif %} ">
                 Posts
             </a>
                        

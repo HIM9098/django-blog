@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+   
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input
+            type="text"
+            name="title"
+            class="form-control"
+            value="{{blog.title}}"
+            placeholder="Enter blog title"
+            required
+        >
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Short Description</label>
+        <textarea
+            name="short_description"
+            class="form-control"
+            rows="3"
+            
+            placeholder="Enter short description"
+            required
+        >{{blog.short_description}}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Blog Body</label>
+        <textarea
+            name="blog_body"
+            class="form-control"
+            rows="8"
+            placeholder="Write your blog content..."
+            required
+        >{{blog.blog_body}}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Featured Image</label>
+        <input
+            type="file"
+            name="featured_image"
+            class="form-control"
+            required
+        >
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+
+        <select name="category" class="form-select" required>
+            <option value="">
+                {{blog.category.category_name}}
+            </option>
+
+            {% for cat in category %}
+                <option value="{{ cat.id }}">
+                    {{ cat.category_name }}
+                </option>
+            {% endfor %}
+
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Add Post
+    </button>
+
+    <a href="{% url 'blog_posts' %}" class="btn btn-secondary">
+        Cancel
+    </a>
+</form>
+{% endblock %}
