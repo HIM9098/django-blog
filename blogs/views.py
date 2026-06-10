@@ -3,6 +3,7 @@ from asyncio import sleep
 from django.shortcuts import render , redirect , get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Q
+from .models import Comment
 
 from .models import Blog  ,Category
 # Create your views here.
@@ -27,12 +28,14 @@ def posts_by_category(request, category_id):
     # return HttpResponse(posts)
 
 def blog_detail(request, slug):
+    comments= Comment.objects.all()
     try : 
         post = Blog.objects.get(slug = slug, status = 'Publish')
     except Blog.DoesNotExist:
         return render(request, '404.html')
     context= {
         'post': post,
+        'comments':comments,
     }
 
     return render(request, 'blog_detail.html', context)
@@ -54,3 +57,18 @@ def search_blog(request):
     }
     
     return render(request, 'search_results.html', context)
+
+
+def comment_posted(request, slug):
+    if request.method == 'POST':
+        comment = request.POST['comment']
+        blog = Blog.objects.get (slug = slug)
+        new_comment = Comment.objects.create(
+            comment = comment ,
+            user = request.user ,
+            blog = blog,
+        )
+
+       
+        return redirect('blog_detail' , slug = slug)
+

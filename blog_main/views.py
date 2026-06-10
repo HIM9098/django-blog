@@ -54,3 +54,6 @@ def logout(request):
     return redirect('login')
 
 
+def comment_posted(request):
+    if request.method == 'POST':
+        pass

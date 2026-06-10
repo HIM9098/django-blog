@@ -25,26 +25,27 @@
                     <p class="fs-5 mb-4">{{ post.blog_body }}</p>
 
                     <!-- Comments -->
-                    <h4>Comments ({{ comment_count }})</h4>
-                    {% if comments %}
-                        {% for comment in comments %}
+                    <h4>Comment</h4>
+                    {% for i in comments%}
+                        
                             <div class="card mt-1">
                                 <div class="card-body">
-                                    <p class="card-text mb-0">{{ comment }}</p>
+                                    <p class="card-text mb-0">{{i.comment}}</p>
                                     <span>
-                                        <small>By {{ comment.user }}</small>
-                                        <small>| {{ comment.created_at | timesince }} ago</small>
+                                        <small>Comment By {{i.user}} on {{i.crated_at}} and  Last Updated at {{i.updated_at}}</small>
+                                        <small>{{i.blog}}</small>
                                     </span>
                                 </div>
                             </div>
-                        {% endfor %}
-                    {% else %}
-                    No comments yet.
-                    {% endif %}
+                    {% endfor %}
                     <br>
+                    
+
+                    <!--  To Write the comment -->
                     <div class="form-group">
-                        {% if user.is_authenticated %}
-                        <form action="" method="POST">
+                      {% if user.is_authenticated %}
+                      
+                        <form action="{% url 'comment_posted' post.slug %}" method="POST">
                             {% csrf_token %}
                             <div class="form-group">
                                 <textarea name="comment" class="form-control" placeholder="Write your comment"></textarea>
@@ -52,9 +53,12 @@
                             </div>
 
                         </form>
-                        {% else %}
+                        {%  else %}
+                       
                         <p>Please <span><a href="{% url 'login' %}">login</a></span> to write a comment!</p>
+
                         {% endif %}
+                    
                     </div>
 
                 </section>
