@@ -21,7 +21,7 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse('User registered successfully') 
+            return  redirect('login') 
     else:
         form = UserRegistrationForm()
     context = {

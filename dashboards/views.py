@@ -1,10 +1,12 @@
+from .forms import EditUserForm
 from urllib import request
-
+from django.contrib.auth.models import User 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from blogs.models import Category, Blog
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
+from .forms import AddUserForm
 
 # Create your views here.
 
@@ -135,3 +137,81 @@ def edit_blog(request, id):
 
 
 # now making the tile clickable and on clicking the it opens the psots 
+# now manageing the manager dashboard 6
+
+#  users 
+# @login_required(login_url="login") 
+def users(request):
+    users = User.objects.all()
+
+    
+    context = {
+        'users' : users
+            }
+    return render(request , "dashboards/users.html",context)
+
+def add_users (request):
+    if request.method == "POST":
+
+        firstname = request.POST['first_name']
+        lastname = request.POST['last_name']
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password1']
+
+        isactive = 'is_active' in request.POST
+        issuperuser = 'is_superuser' in request.POST
+
+        user = User.objects.create_user(
+            first_name=firstname,
+            last_name=lastname,
+            username=username,
+            email=email,
+            password=password,
+        )
+
+        user.is_active = isactive
+        user.is_superuser = issuperuser
+
+        # Needed for Django admin access
+        if issuperuser:
+            user.is_staff = True
+
+        user.save()
+
+        return redirect("users")
+    else : 
+        form = AddUserForm()
+        context = {
+        'form':form
+            }
+        return render(request , 'dashboards/add_user.html',context)
+    
+
+def edit_user(request, pk):
+
+    user = User.objects.get(pk=pk)
+
+    if request.method == "POST":
+
+        form = EditUserForm(request.POST, instance=user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('users')
+
+    else:
+        form = EditUserForm(instance=user)
+
+    context = {
+        'form': form,
+        'user': user,
+    }
+
+    return render(request, 'dashboards/edit_user.html', context)
+
+    
+def delete_user (request, pk):
+    user = User.objects.get(pk = pk )
+    user.delete()
+    return redirect('users')

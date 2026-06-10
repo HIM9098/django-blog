@@ -17,6 +17,11 @@ urlpatterns= [
     path('blog/add_blog/', views.add_blog, name = "add_blog"),
     path('blog/edit_blog/<int:id>/', views.edit_blog, name = "edit_blog"),
     path('blog/delete_blog/<int:id>/', views.delete_blog, name = "delete_blog"),
+
+    path('users/', views.users , name = "users"),
+    path('users/add_users/',views.add_users, name = "add_users"),
+    path('users/edit_user/<int:pk>/',views.edit_user, name = "edit_user"),
+    path('user/delete/<int:pk>/', views.delete_user, name = "delete_user"),
     
 
 ]
